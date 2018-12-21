@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.cx.mapper.MenuMapper">
+    <resultMap id="rmen" type="com.baizhi.cx.entity.Menu">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <collection property="cnode" ofType="com.baizhi.cx.entity.Menu">
+            <id column="id2" property="id"/>
+            <result column="title2" property="title"/>
+            <result column="url2" property="url"/>
+        </collection>
+    </resultMap>
+    <select id="selectPall" resultMap="rmen">
+select m1.id id,m1.title title, m2.id id2,m2.url url2 ,m2.title title2
+ from menu m1 left join menu m2 on m2.pid=m1.id where m1.pid is null
+	</select>
+
+</mapper>

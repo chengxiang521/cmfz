@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.cx.mapper.BannerMapper">
+
+    <select id="selectpageCount" resultType="Integer">
+        select count(*) from banner
+    </select>
+    <select id="selectPageall" resultType="com.baizhi.cx.entity.Banner">
+      select * from banner limit ${(page-1)*row},#{row}
+    </select>
+    <insert id="addbanner" parameterType="com.baizhi.cx.entity.Banner">
+  insert  into banner(title,imgpath,stauts,uploaddate,descriptlon)
+                values (#{title},#{imgpath},#{stauts},NOW(),#{descriptlon})
+    </insert>
+</mapper>
