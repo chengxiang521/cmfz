@@ -16,14 +16,16 @@ $(function () {
             {field:'duration',title:'章节时长',width:100}
         ]],
         onDblClickRow:function (row) {
-            var player = $("#audi")[0]; /*jquery对象转换成js对象*/
-            if (player.paused){ /*如果已经暂停*/
-                $("#audi").prop("src","${pageContext.request.contextPath}/upload"+row.chpath);
-                player.play(); /*播放*/
-            }else {
-                player.pause();/*暂停*/
+            var row = $("#albumtb").treegrid("getSelected");
+            if(row.size!=null){
+                var player = $("#audi")[0]; /*jquery对象转换成js对象*/
+                if (player.paused){ /*如果已经暂停*/
+                    $("#audi").prop("src","${pageContext.request.contextPath}/upload"+row.chpath);
+                    player.play(); /*播放*/
+                }else {
+                    player.pause();/*暂停*/
+                }
             }
-
         }
     });
     $("#albumadd").linkbutton({
@@ -207,8 +209,6 @@ $("#albumcz").linkbutton({
     <form id="albumfor2" method="post" enctype="multipart/form-data">
         音频名称： <input name="title" /><br>
         音频路径：<input type="file"  name="srcpath"/><br/>
-        大小：<input name="size" /><br>
-        时长：<input name="duration"/><br>
         <input id="albumid"  name="albumid"  hidden/><br>
         <a id="albumtj2">提交</a> <a id="albumcz2">重置</a>
     </form>
