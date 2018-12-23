@@ -9,6 +9,9 @@ $(function () {
         fitColumns : true,
         fit:true,
         toolbar:"#albumdiv",
+        pagination: true,
+        pageList: [1, 3, 5, 7, 9],
+        pageSize: 3,
         columns:[[
             {field:'title',title:'名字',width:100},
             {field:'chpath',title:'下载路径',width:100},

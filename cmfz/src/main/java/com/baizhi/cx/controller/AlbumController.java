@@ -1,5 +1,6 @@
 package com.baizhi.cx.controller;
 
+import com.baizhi.cx.dto.PageDto;
 import com.baizhi.cx.entity.Album;
 import com.baizhi.cx.service.AlbumService;
 import com.baizhi.cx.util.UploadFile;
@@ -22,9 +23,9 @@ public class AlbumController {
 
     @RequestMapping("all")
     @ResponseBody
-    public List<Album> selectall() {
-        List<Album> list = albumService.queryAllcx();
-        return list;
+    public PageDto<Album> selectall(Integer page, Integer rows) {
+        PageDto<Album> pageDto = albumService.queryAllcx(page, rows);
+        return pageDto;
     }
 
     @RequestMapping("one")

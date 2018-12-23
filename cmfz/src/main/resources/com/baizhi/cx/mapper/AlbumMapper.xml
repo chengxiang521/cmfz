@@ -30,12 +30,14 @@ SELECT
 c.id cid ,c.title ctitle, c.size csize ,c.duration cduration,c.chpath chpath, c.uploaddate cuploaddate ,c.albumid albumid
 FROM
 	album a
-LEFT OUTER JOIN chapter c ON a.id = c.albumid
+LEFT OUTER JOIN chapter c ON a.id = c.albumid limit ${(page-1)*row},#{row}
 
     </select>
     <insert id="addAlbum" parameterType="com.baizhi.cx.entity.Album">
 insert into album(id,title,count,coverimg,score,author,broadcast,brief,pubdate)
 values(#{id},#{title},0,#{coverimg},#{score},#{author},#{broadcast},#{brief},NOW())
     </insert>
-
+<update id="updatealbum" parameterType="String">
+UPDATE album set COUNT=COUNT+1  where id=#{id}
+</update>
 </mapper>

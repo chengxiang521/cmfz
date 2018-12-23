@@ -1,5 +1,6 @@
 package com.baizhi.cx.service;
 
+import com.baizhi.cx.dto.PageDto;
 import com.baizhi.cx.entity.Album;
 import com.baizhi.cx.mapper.AlbumMapper;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,12 @@ public class AlbumServiceImpl implements  AlbumService{
     @Resource(name = "albumMapper")
     AlbumMapper albumMapper;
     @Override
-    public List<Album> queryAllcx() {
-        return albumMapper.queryAllcx();
+
+    public PageDto<Album> queryAllcx(Integer page , Integer row) {
+        PageDto<Album> albumPageDto = new PageDto<>();
+        albumPageDto.setTotal(albumMapper.selectCount(new Album()));
+        albumPageDto.setRows(albumMapper.queryAllcx(page, row));
+        return albumPageDto;
     }
 
     @Override
