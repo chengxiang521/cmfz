@@ -28,10 +28,9 @@ public class ChapterController {
     public void getAlbumID(Chapter ch, HttpSession session, MultipartFile srcpath) throws Exception {
         String pathcx=UploadFile.getAlbumID(session, srcpath);
         ch.setChpath(pathcx);
-        File file = new File("src/main/webapp/upload"+pathcx);
-            ch.setSize(""+(file.length()/1024+1));
+        ch.setSize(""+(srcpath.getSize()/1024+1));
         try {
-            MP3File f = (MP3File) AudioFileIO.read(file);
+            MP3File f = (MP3File) AudioFileIO.read(new File("src/main/webapp/upload/"+pathcx));
             MP3AudioHeader audioHeader = (MP3AudioHeader)f.getAudioHeader();
             ch.setDuration(""+audioHeader.getTrackLength());
         } catch(Exception e) {
@@ -40,8 +39,8 @@ public class ChapterController {
         chapterService.addChapter(ch);
     }
     @RequestMapping("down")
-    public void download(String name, HttpSession session, HttpServletResponse response) throws IOException {
-        UploadFile.download(name,session,response);
+    public void download(String title,String name, HttpSession session, HttpServletResponse response) throws IOException {
+        UploadFile.download(title,name,session,response);
     }
 
 }

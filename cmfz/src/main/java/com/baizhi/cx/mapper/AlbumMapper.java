@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface AlbumMapper extends Mapper<Album> {
 public List<Album> queryAllcx(@Param("page") Integer page, @Param("row")Integer row);
+public List<Album> queryAllpoicx();
 public Album queryById(String id);
 public void addAlbum(Album a);
 public void updatealbum(String id);

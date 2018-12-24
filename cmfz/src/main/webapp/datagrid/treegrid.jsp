@@ -23,7 +23,7 @@ $(function () {
             if(row.size!=null){
                 var player = $("#audi")[0]; /*jquery对象转换成js对象*/
                 if (player.paused){ /*如果已经暂停*/
-                    $("#audi").prop("src","${pageContext.request.contextPath}/upload"+row.chpath);
+                    $("#audi").prop("src","${pageContext.request.contextPath}/upload/"+row.chpath);
                     player.play(); /*播放*/
                 }else {
                     player.pause();/*暂停*/
@@ -45,7 +45,7 @@ $(function () {
                 }else{
                     $("#albumtbaddiv").dialog("open");
                     var id=row.id;
-                    $('#albumfor').form('load',"${pageContext.request.contextPath}/album/one?id="+id);
+                    $('#albumfor').form('load',row);
                 }
             }else {
                 $.messager.show({
@@ -92,13 +92,30 @@ $(function () {
             //获取选中行
             var row = $("#albumtb").treegrid("getSelected");
             if(row.size!=null){
-                window.location.href="${pageContext.request.contextPath}/chapt/down?name="+row.chpath;
+            location.href="${pageContext.request.contextPath}/chapt/down?name="+row.chpath+"&title="+row.title;
+
             }else {
                 $.messager.show({
                     title : "警告",
                     msg : "请选择音频"
                 });
             }
+        }
+    });
+    //导入
+    $("#albumpoir").linkbutton({
+        iconCls:"icon-reload",
+        onClick:function () {
+            }
+    });
+    //导出
+    $("#albumpoic").linkbutton({
+        iconCls:"icon-reload",
+        onClick:function () {
+            //获取选中行
+            $.ajax({
+                url:"${pageContext.request.contextPath}/album/poid"
+            })
         }
     });
     $("#albumtbaddiv").dialog({
@@ -184,6 +201,8 @@ $("#albumcz").linkbutton({
     <a id="albumup">专辑添加</a>
     <a id="albumdel">添加章节</a>
     <a id="albumsave">下载音频</a>
+    <a id="albumpoir">导入专辑</a>
+    <a id="albumpoic">导出专辑</a>
 </div>
 <div id="albumtbaddiv">
     <form id="albumfor" method="post">
